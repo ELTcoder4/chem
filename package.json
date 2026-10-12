@@ -1,0 +1,9 @@
+{
+  "name": "atomlab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interactive Rutherford atom and molecular geometry simulator",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

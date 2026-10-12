@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#08121c" />
+    <meta name="description" content="AtomLab — an interactive Rutherford atom simulator and molecular geometry atlas." />
+    <title>AtomLab — Rutherford & molecular geometry</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="AtomLab home">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="brand-copy"><strong>ATOMLAB</strong><small>interactive chemistry studio</small></span>
+        </a>
+        <nav class="topnav" aria-label="Primary navigation">
+          <button class="nav-item active" data-scroll="top">Workspace</button>
+          <button class="nav-item" data-scroll="atomic-lab">Atomic lab</button>
+          <button class="nav-item" data-scroll="molecule-atlas">Molecule atlas</button>
+        </nav>
+        <div class="top-status"><span class="live-dot"></span><span>SIMULATION LIVE</span><span class="top-date">12 OCT 2026</span></div>
+      </header>
+
+      <main id="top">
+        <section class="hero-section page-section" aria-labelledby="page-title">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-line"></span>CHEMISTRY / 01</p>
+            <h1 id="page-title">See the <em>architecture</em><br />of matter.</h1>
+            <p class="hero-subtitle">A visual workspace for Rutherford’s atom and the molecular geometries built from it.</p>
+          </div>
+          <div class="hero-readout" aria-label="Workspace summary">
+            <div class="readout-top"><span>SESSION READOUT</span><span>AL-0028</span></div>
+            <div class="readout-row"><strong>2</strong><span>models online</span></div>
+            <div class="readout-row"><strong>8</strong><span>molecules indexed</span></div>
+            <div class="readout-row"><strong>∞</strong><span>questions to explore</span></div>
+          </div>
+        </section>
+
+        <section id="atomic-lab" class="lab-layout page-section" aria-labelledby="atomic-heading">
+          <article class="panel atom-panel">
+            <div class="panel-header">
+              <div>
+                <p class="panel-kicker"><span class="signal-icon"></span>ATOMIC LAB / MODEL 01</p>
+                <h2 id="atomic-heading">Rutherford atom</h2>
+              </div>
+              <div class="panel-code">RUTH–α / 1911</div>
+            </div>
+            <div class="atom-stage-wrap">
+              <canvas id="atomCanvas" aria-label="Animated Rutherford model of an atom"></canvas>
+              <div class="stage-legend"><span><i class="legend-dot proton"></i>proton</span><span><i class="legend-dot neutron"></i>neutron</span><span><i class="legend-dot electron"></i>electron</span></div>
+              <div class="stage-crosshair" aria-hidden="true"><span></span><span></span></div>
+              <div class="atom-callout callout-nucleus"><span>01</span><b>dense nucleus</b></div>
+              <div class="atom-callout callout-electron"><span>02</span><b>electron path</b></div>
+            </div>
+            <div class="control-strip">
+              <button class="control-button primary" id="pauseButton"><span class="pause-icon"></span><span>Pause</span></button>
+              <div class="speed-control">
+                <label for="speedRange">SPEED <output id="speedValue">1.0×</output></label>
+                <input id="speedRange" type="range" min="0.2" max="2.4" step="0.1" value="1" />
+              </div>
+              <button class="control-button ghost" id="labelsButton"><span class="eye-icon"></span><span>Labels</span></button>
+            </div>
+            <div class="particle-readout" id="particleReadout"></div>
+          </article>
+
+          <article class="panel molecule-panel" id="molecule-atlas">
+            <div class="panel-header molecule-header">
+              <div>
+                <p class="panel-kicker"><span class="signal-icon purple"></span>MOLECULE ATLAS / MODEL 02</p>
+                <h2 id="moleculeTitle">Water <small>H₂O</small></h2>
+              </div>
+              <button class="icon-button" id="rotateButton" aria-label="Rotate molecule view" title="Rotate molecule view"><span class="rotate-icon">↻</span></button>
+            </div>
+            <div class="molecule-stage-wrap">
+              <svg id="moleculeSvg" class="molecule-svg" viewBox="0 0 560 360" role="img" aria-label="Molecular structure visualization"></svg>
+              <div class="molecule-axis"><span>x</span><span>y</span><span>z</span></div>
+              <div class="view-label"><span class="view-dot"></span>OBLIQUE VIEW <span class="view-sep">/</span> <span id="atomCountLabel">3 ATOMS</span></div>
+            </div>
+            <div class="molecule-summary">
+              <div><span class="summary-label">GEOMETRY</span><strong id="geometryValue">Bent</strong></div>
+              <div><span class="summary-label">POLARITY</span><strong id="polarityValue" class="purple-text">Polar</strong></div>
+              <div><span class="summary-label">HYBRIDIZATION</span><strong id="hybridValue">sp³</strong></div>
+            </div>
+          </article>
+        </section>
+
+        <section class="lower-layout page-section">
+          <article class="panel catalog-panel">
+            <div class="panel-header catalog-header">
+              <div>
+                <p class="panel-kicker"><span class="signal-icon yellow"></span>REFERENCE INDEX</p>
+                <h2>Choose a molecule</h2>
+              </div>
+              <span class="index-count" id="indexCount">08 / 08</span>
+            </div>
+            <label class="search-box" for="moleculeSearch"><span class="search-icon"></span><input id="moleculeSearch" type="search" placeholder="Search compounds, formulae…" autocomplete="off" /><kbd>/</kbd></label>
+            <div class="molecule-list" id="moleculeList" role="listbox" aria-label="Molecule list"></div>
+            <p class="catalog-note"><span class="note-mark">i</span> Select any structure to load its measurements. Values are idealized gas-phase geometry.</p>
+          </article>
+
+          <article class="panel inspector-panel">
+            <div class="panel-header inspector-header">
+              <div>
+                <p class="panel-kicker"><span class="signal-icon blue"></span>INSPECTOR / LIVE VALUES</p>
+                <h2>What is happening here?</h2>
+              </div>
+              <span class="selection-chip" id="selectionChip">MOLECULE</span>
+            </div>
+            <p class="inspector-description" id="inspectorDescription"></p>
+            <div class="data-grid" id="dataGrid"></div>
+            <div class="measurement-block">
+              <div class="measurement-title"><span>STRUCTURAL MEASUREMENTS</span><span class="measurement-rule"></span><span class="small-mono">IDEALIZED</span></div>
+              <div class="measurement-table" id="measurementTable"></div>
+            </div>
+            <div class="domain-footer" id="domainFooter"></div>
+          </article>
+        </section>
+      </main>
+
+      <footer class="footer"><span><b>ATOMLAB</b> / Built for curious minds</span><span>RUTHERFORD → LEWIS → VSEPR</span><span class="footer-status"><i></i> All systems nominal</span></footer>
+    </div>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
